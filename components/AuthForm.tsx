@@ -6,6 +6,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "./Inputs/Input";
 import Button from "./Buttons/Button";
 import AuthSocialButton from "./Buttons/AuthSocialButton";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { LiteralUnion, signIn } from "next-auth/react";
+import { BuiltInProviderType } from "next-auth/providers";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -37,16 +41,48 @@ export default function AuthForm() {
     setLoading(true);
 
     if (variant === "REGISTER") {
-      /* Axios Register */
+      axios
+        .post("/api/register", data)
+        .then(() => {
+          toast.success("Successfully registered!");
+          setVariant("LOGIN");
+        })
+        .catch(() => toast.error("Something went wrong!"))
+        .finally(() => setLoading(false));
     }
 
     if (variant === "LOGIN") {
-      /* NextAuth SignIn */
+      signIn("credentials", {
+        ...data,
+        redirect: false,
+      })
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error("Invalid credentials!");
+          }
+
+          if (callback?.ok && !callback.error) {
+            toast.success("Logged in!");
+          }
+        })
+        .finally(() => setLoading(false));
     }
   };
 
-  const onSocialAction = (action: string) => {
+  const onSocialAction = (action: LiteralUnion<BuiltInProviderType>) => {
     setLoading(true);
+
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Invalid credentials!");
+        }
+
+        if (callback?.ok && !callback.error) {
+          toast.success("Logged in!");
+        }
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -58,6 +94,7 @@ export default function AuthForm() {
               label="Name"
               register={register}
               errors={errors}
+              type="text"
               id="name"
               disabled={isLoading}
             />
@@ -66,6 +103,7 @@ export default function AuthForm() {
             label="Email"
             register={register}
             errors={errors}
+            type="email"
             id="email"
             disabled={isLoading}
           />
@@ -73,6 +111,7 @@ export default function AuthForm() {
             label="Password"
             register={register}
             errors={errors}
+            type="password"
             id="password"
             disabled={isLoading}
           />
