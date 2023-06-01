@@ -1,21 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Input from "./Inputs/Input";
-import Button from "./Buttons/Button";
-import AuthSocialButton from "./Buttons/AuthSocialButton";
+import Input from "./inputs/Input";
+import Button from "./buttons/Button";
+import AuthSocialButton from "./buttons/AuthSocialButton";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { LiteralUnion, signIn } from "next-auth/react";
+import { LiteralUnion, signIn, useSession } from "next-auth/react";
 import { BuiltInProviderType } from "next-auth/providers";
+import { useRouter } from "next/navigation";
 
 type Variant = "LOGIN" | "REGISTER";
 
 export default function AuthForm() {
+  const session = useSession();
+  const router = useRouter();
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [session.status]);
 
   const toggleVariant = () => {
     if (variant === "LOGIN") {
@@ -45,7 +54,7 @@ export default function AuthForm() {
         .post("/api/register", data)
         .then(() => {
           toast.success("Successfully registered!");
-          setVariant("LOGIN");
+          signIn("credentials", data);
         })
         .catch(() => toast.error("Something went wrong!"))
         .finally(() => setLoading(false));
@@ -63,6 +72,7 @@ export default function AuthForm() {
 
           if (callback?.ok && !callback.error) {
             toast.success("Logged in!");
+            router.push("/users");
           }
         })
         .finally(() => setLoading(false));
@@ -80,6 +90,7 @@ export default function AuthForm() {
 
         if (callback?.ok && !callback.error) {
           toast.success("Logged in!");
+          router.push("/users");
         }
       })
       .finally(() => setLoading(false));
