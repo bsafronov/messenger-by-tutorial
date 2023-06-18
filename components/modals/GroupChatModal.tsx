@@ -8,7 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Button from "../buttons/Button";
-import Input from "../inputs/Input";
+import Input from "@/components/inputs/Input";
 import Select from "../inputs/Select";
 
 interface GroupChatModalProps {
