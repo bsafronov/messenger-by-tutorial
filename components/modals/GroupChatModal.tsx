@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import Button from "@/components/buttons/Button";
+import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 

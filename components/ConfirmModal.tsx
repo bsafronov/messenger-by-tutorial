@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Dialog } from "@headlessui/react";
-import Button from "./buttons/Button";
+import Button from "./Button";
 
 interface ConfirmModalProps {
   isOpen: boolean;

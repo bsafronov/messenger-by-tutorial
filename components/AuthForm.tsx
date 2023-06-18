@@ -9,8 +9,8 @@ import { LiteralUnion, signIn, useSession } from "next-auth/react";
 import { BuiltInProviderType } from "next-auth/providers";
 import { useRouter } from "next/navigation";
 import Input from "@/components/Input";
-import Button from "@/components/buttons/Button";
-import AuthSocialButton from "./buttons/AuthSocialButton";
+import Button from "@/components/Button";
+import AuthSocialButton from "./AuthButton";
 
 type Variant = "LOGIN" | "REGISTER";
 

@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import { CldUploadButton } from "next-cloudinary";
-import Button from "../buttons/Button";
+import Button from "../Button";
 import Input from "@/components/Input";
 
 interface SettingsModalProps {

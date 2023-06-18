@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import Loader from "../Loader";
+import Loader from "./Loader";
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
