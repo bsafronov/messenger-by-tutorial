@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Input from "./inputs/Input";
-import Button from "./buttons/Button";
 import AuthSocialButton from "./buttons/AuthSocialButton";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { LiteralUnion, signIn, useSession } from "next-auth/react";
 import { BuiltInProviderType } from "next-auth/providers";
 import { useRouter } from "next/navigation";
+import Input from "./inputs/Input";
+import Button from "./buttons/Button";
 
 type Variant = "LOGIN" | "REGISTER";
 
