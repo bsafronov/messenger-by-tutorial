@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
-import Loader from "../Loader";
+import Loader from "./Loader";
 
 interface InputProps {
   label: string;

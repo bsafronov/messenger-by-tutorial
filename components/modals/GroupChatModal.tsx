@@ -8,8 +8,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Button from "@/components/buttons/Button";
-import Input from "@/components/inputs/Input";
-import Select from "@/components/inputs/Select";
+import Input from "@/components/Input";
+import Select from "@/components/Select";
 
 interface GroupChatModalProps {
   isOpen: boolean;
