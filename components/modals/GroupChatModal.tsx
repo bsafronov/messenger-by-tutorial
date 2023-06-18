@@ -39,7 +39,6 @@ export default function GroupChatModal({
   });
 
   const members = watch("members");
-  console.log(members);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);

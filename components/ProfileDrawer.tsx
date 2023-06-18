@@ -10,6 +10,7 @@ import Avatar from "./Avatar";
 import Modal from "./Modal";
 import ConfirmModal from "./ConfirmModal";
 import AvatarGroup from "./AvatarGroup";
+import { useActiveList } from "@/hooks/useActiveList";
 
 interface ProfileDrawerProps {
   data: Conversation & {
@@ -26,17 +27,19 @@ export default function ProfileDrawer({
 }: ProfileDrawerProps) {
   const otherUser = useOtherUser(data);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const { members } = useActiveList();
 
   const joinedDate = format(new Date(otherUser.createdAt), "PP");
 
   const title = data.name || otherUser.name;
 
+  const isActive = members.indexOf(otherUser.email!) !== -1;
   const statusText = (() => {
     if (data.isGroup) {
       return `${data.users.length} members`;
     }
 
-    return "Active";
+    return isActive ? "Active" : "Offline";
   })();
 
   return (
